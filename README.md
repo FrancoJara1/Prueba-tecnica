@@ -1,228 +1,229 @@
-# Prueba-tecnica
+# Article Manager API
 
-Desarrollo pagina web para prueba tecnica for Wortise
-Article Manager API
+API REST para la gestión de artículos. Permite a usuarios autenticarse y administrar artículos propios mediante operaciones CRUD.
 
-API REST para la gestión de artículos desarrollada con Node.js, TypeScript, Hono y MongoDB.
+El proyecto implementa autenticación, validación de datos, búsqueda, paginación y ordenamiento utilizando una arquitectura modular.
 
-El proyecto permite registrar usuarios, autenticarse mediante Better Auth y gestionar artículos con operaciones CRUD, validaciones, búsqueda, paginación y ordenamiento.
+---
 
-Tecnologías utilizadas
-Node.js
-TypeScript
-Hono
-MongoDB Driver
-MongoDB Atlas
-Better Auth
-Zod
-Postman
-Instalación
+## 🚀 Tecnologías
+
+* **Node.js**
+* **TypeScript**
+* **Hono** (Framework HTTP)
+* **MongoDB Driver**
+* **MongoDB Atlas**
+* **Better Auth** (Autenticación)
+* **Zod** (Validaciones)
+
+---
+
+## 📁 Arquitectura
+
+```
+src/
+├── config/          # Configuración de la aplicación
+├── controllers/     # Lógica de negocio
+├── database/        # Conexión MongoDB
+├── middleware/      # Middlewares (auth)
+├── routers/         # Definición de endpoints
+├── schemas/         # Validaciones con Zod
+├── types/           # Tipos TypeScript
+└── utils/           # Utilidades
+```
+
+---
+
+## ⚙️ Instalación
 
 Clonar el repositorio:
 
-git clone <URL_DEL_REPOSITORIO>
-
-Ingresar al proyecto:
-
-cd backend
+```bash
+git clone <repository-url>
+```
 
 Instalar dependencias:
 
+```bash
 npm install
-Variables de entorno
+```
 
-Crear un archivo .env en la raíz del backend:
+Crear archivo `.env`:
 
+```env
 PORT=3000
 
-MONGODB_URI=mongodb+srv://usuario:password@cluster.mongodb.net/article-manager
+MONGODB_URI=mongodb+srv://...
 
-BETTER_AUTH_SECRET=secret_key
+BETTER_AUTH_SECRET=secret
 
 BETTER_AUTH_URL=http://localhost:3000
-Ejecutar el proyecto
+```
 
-Modo desarrollo:
+Ejecutar en desarrollo:
 
+```bash
 npm run dev
+```
 
-El servidor iniciará en:
+Servidor disponible en:
 
+```
 http://localhost:3000
+```
 
-Respuesta de prueba:
+---
 
-{
-"message": "API funcionando 🚀"
-}
-Autenticación
+# 🔐 Autenticación
 
-La autenticación se realiza mediante Better Auth.
+La API utiliza Better Auth para manejar usuarios y sesiones.
 
-Registro
-POST
-/api/auth/sign-up/email
+## Registro
 
-Body:
-
-{
-"name": "Franco",
-"email": "franco@test.com",
-"password": "password123"
-}
-Login
-POST
-/api/auth/sign-in/email
+```
+POST /api/auth/sign-up/email
+```
 
 Body:
 
+```json
 {
-"email": "franco@test.com",
-"password": "password123"
+  "name": "Usuario",
+  "email": "usuario@test.com",
+  "password": "password123"
 }
+```
 
-Respuesta:
+---
 
+## Login
+
+```
+POST /api/auth/sign-in/email
+```
+
+Body:
+
+```json
 {
-"token": "TOKEN",
-"user": {
-"id": "USER_ID",
-"name": "Franco",
-"email": "franco@test.com"
+  "email": "usuario@test.com",
+  "password": "password123"
 }
-}
+```
 
-El token debe enviarse en las rutas protegidas:
+Las rutas protegidas requieren:
 
+```
 Authorization: Bearer TOKEN
-Articles API
-Crear artículo
-POST
-/articles
+```
 
-Headers:
+---
 
-Authorization: Bearer TOKEN
-Content-Type: application/json
+# 📝 Articles API
 
-Body:
+## Crear artículo
 
-{
-"title": "Mi primer artículo",
-"content": "Contenido del artículo"
-}
-
-Respuesta:
-
-{
-"id": "ARTICLE_ID",
-"title": "Mi primer artículo",
-"content": "Contenido del artículo"
-}
-Obtener artículos
-GET
-/articles
-
-Soporta:
-
-búsqueda
-paginación
-ordenamiento
-
-Ejemplo:
-
-/articles?page=1&limit=10&search=node&sortBy=createdAt&order=desc
-
-Parámetros:
-
-Parámetro Descripción
-page Número de página
-limit Cantidad de resultados
-search Busca por título y contenido
-sortBy Campo para ordenar
-order asc o desc
-
-Respuesta:
-
-{
-"page": 1,
-"limit": 10,
-"total": 20,
-"totalPages": 2,
-"data": []
-}
-Obtener artículo por ID
-GET
-/articles/:id
-
-Ejemplo:
-
-/articles/64abc123
-Actualizar artículo
-PUT
-/articles/:id
+```
+POST /articles
+```
 
 Requiere autenticación.
 
-Headers:
-
-Authorization: Bearer TOKEN
-
 Body:
 
+```json
 {
-"title": "Nuevo título",
-"content": "Nuevo contenido"
+  "title": "Nuevo artículo",
+  "content": "Contenido del artículo"
 }
+```
 
-Solo el usuario propietario puede modificar el artículo.
+---
 
-Eliminar artículo
-DELETE
-/articles/:id
+## Listar artículos
+
+```
+GET /articles
+```
+
+Parámetros opcionales:
+
+| Parámetro | Descripción                   |
+| --------- | ----------------------------- |
+| page      | Página actual                 |
+| limit     | Cantidad de resultados        |
+| search    | Buscar por título o contenido |
+| sortBy    | Campo de ordenamiento         |
+| order     | asc / desc                    |
+
+Ejemplo:
+
+```
+GET /articles?page=1&limit=10&search=node&sortBy=createdAt&order=desc
+```
+
+---
+
+## Obtener artículo
+
+```
+GET /articles/:id
+```
+
+---
+
+## Actualizar artículo
+
+```
+PUT /articles/:id
+```
 
 Requiere autenticación.
 
-Solo el propietario del artículo puede eliminarlo.
+Solo el propietario puede modificarlo.
 
-Validaciones
+---
 
-Las entradas son validadas mediante Zod.
+## Eliminar artículo
 
-Ejemplos:
+```
+DELETE /articles/:id
+```
 
-El título debe tener una longitud mínima.
-El contenido es obligatorio.
-No se permiten campos no definidos en las actualizaciones.
-Arquitectura
-src
-│
-├── config
-│ └── Configuración de la aplicación
-│
-├── controllers
-│ └── Lógica de negocio
-│
-├── database
-│ └── Conexión MongoDB
-│
-├── middleware
-│ └── Autenticación y validaciones
-│
-├── routers
-│ └── Definición de endpoints
-│
-├── schemas
-│ └── Validaciones con Zod
-│
-├── types
-│ └── Tipos TypeScript
-│
-└── utils
-└── Funciones reutilizables
-Seguridad implementada
-Autenticación mediante Better Auth.
-Protección de rutas privadas.
-Validación de datos con Zod.
-Control de permisos por propietario.
-Validación de IDs de MongoDB.
+Requiere autenticación.
+
+Solo el propietario puede eliminarlo.
+
+---
+
+# ✅ Características implementadas
+
+* Registro e inicio de sesión de usuarios.
+* Gestión de sesiones con Better Auth.
+* CRUD completo de artículos.
+* Protección de rutas privadas.
+* Control de permisos por propietario.
+* Validación de datos con Zod.
+* Búsqueda por título y contenido.
+* Paginación.
+* Ordenamiento dinámico.
+* Índices MongoDB para optimización.
+
+---
+
+## 🧪 Pruebas
+
+La API puede probarse utilizando Postman.
+
+Flujo recomendado:
+
+1. Registrar usuario.
+2. Iniciar sesión.
+3. Copiar token.
+4. Crear artículos.
+5. Consultar, editar y eliminar artículos.
+
+---
+
+
+
