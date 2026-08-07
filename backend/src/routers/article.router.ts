@@ -18,7 +18,6 @@ router.post(
   createArticle
 );
 
-
 router.get(
   "/articles",
   getArticles
@@ -38,4 +37,5 @@ router.delete(
     requireAuth,
     deleteArticle
 )
+
 export default router;
