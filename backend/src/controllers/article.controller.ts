@@ -123,28 +123,58 @@ export const getArticleById = asyncHandler(async (c) => {
   if (!ObjectId.isValid(id)) {
     return c.json(
       {
-        error: "ID inválido"
+        error: "ID inválido",
       },
       400
     );
   }
 
-  const article = await db
+  const result = await db
     .collection("articles")
-    .findOne({
-      _id: new ObjectId(id)
-    });
+    .aggregate([
+      {
+        $match: {
+          _id: new ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "user",
+          localField: "authorId",
+          foreignField: "_id",
+          as: "author",
+        },
+      },
+      {
+        $unwind: "$author",
+      },
+      {
+        $project: {
+          title: 1,
+          content: 1,
+          imageUrl: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          author: {
+            id: "$author._id",
+            name: "$author.name",
+            email: "$author.email",
+          },
+        },
+      },
+    ])
+    .toArray();
 
-  if (!article) {
+  if (result.length === 0) {
     return c.json(
       {
-        message: "No se encontró el artículo"
+        message: "No se encontró el artículo",
       },
       404
     );
   }
 
-  return c.json(article);
+  return c.json(result[0]);
 });
 
 export const updateArticle = asyncHandler(async (c) => {
