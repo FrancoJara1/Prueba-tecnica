@@ -6,8 +6,16 @@ import authRoutes from "./routers/auth";
 import articleRouter from "./routers/article.router";
 import userRouter from "./routers/user.router";
 import publicRouter from "./routers/public.router";
+import { cors } from "hono/cors";
 const app = new Hono();
 
+app.use(
+  "*",
+  cors({
+    origin: "http://localhost:5174",
+    credentials: true,
+  })
+);
 app.get("/", (c) => {
   return c.json({ message: "API funcionando 🚀" });
 });

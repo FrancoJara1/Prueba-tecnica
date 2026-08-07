@@ -5,7 +5,9 @@ import {
   Outlet,
 } from "@tanstack/react-router";
 import { Button } from "@heroui/react";
-
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
 });
@@ -27,7 +29,7 @@ const homeRoute = createRoute({
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
-  component: () => <h1>Login</h1>,
+  component: Login,
 });
 
 const registerRoute = createRoute({
@@ -39,7 +41,11 @@ const registerRoute = createRoute({
 const dashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/dashboard",
-  component: () => <h1>Dashboard</h1>,
+ component: () => (
+  <ProtectedRoute>
+    <Dashboard />
+  </ProtectedRoute>
+),
 });
 
 const routeTree = rootRoute.addChildren([
