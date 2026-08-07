@@ -25,6 +25,7 @@ export const createArticle = asyncHandler(async (c) => {
   const article = {
     title: validation.data.title,
     content: validation.data.content,
+    imageUrl: validation.data.imageUrl ?? null,
     authorId: new ObjectId(user.id),
     createdAt: new Date(),
     updatedAt: new Date(),

@@ -9,6 +9,10 @@ export const createArticleSchema = z.object({
   content: z
     .string()
     .min(20, "El contenido debe tener al menos 20 caracteres"),
+  imageUrl: z
+    .string()
+    .url("Debe ser una URL válida")
+    .optional()
 });
 
 export const updateArticleSchema = z.object({
@@ -22,4 +26,8 @@ export const updateArticleSchema = z.object({
     .string()
     .min(20, "El contenido debe tener al menos 20 caracteres")
     .optional(),
+  imageUrl: z
+  .string()
+  .url("Debe ser una URL válida")
+  .optional()
 });
