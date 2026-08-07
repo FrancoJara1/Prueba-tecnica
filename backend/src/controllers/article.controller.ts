@@ -45,7 +45,7 @@ export const createArticle = asyncHandler(async (c) => {
 });
 
 export const getArticles = asyncHandler(async (c) => {
-
+  const user = c.get("user");
   const page = Number(c.req.query("page")) || 1;
   const limit = Number(c.req.query("limit")) || 10;
 
@@ -57,8 +57,9 @@ export const getArticles = asyncHandler(async (c) => {
 
   const skip = (page - 1) * limit;
 
-
-  const filter: any = {};
+const filter: any = {
+  authorId: new ObjectId(user.id),
+};
 
   if (search) {
     filter.$or = [

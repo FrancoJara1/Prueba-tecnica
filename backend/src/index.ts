@@ -5,6 +5,7 @@ import { env } from "./config/env";
 import authRoutes from "./routers/auth";
 import articleRouter from "./routers/article.router";
 import userRouter from "./routers/user.router";
+import publicRouter from "./routers/public.router";
 const app = new Hono();
 
 app.get("/", (c) => {
@@ -14,7 +15,7 @@ app.get("/", (c) => {
 app.route("/", authRoutes);
 app.route("/", articleRouter);
 app.route("/", userRouter);
-
+app.route("/", publicRouter);
 app.onError((err, c) => {
   console.error("Error:", err);
 
