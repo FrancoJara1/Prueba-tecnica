@@ -4,29 +4,22 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
-import { Button } from "@heroui/react";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/updateArticle";
+import Home from "./pages/Home";
+
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
 });
-
-const homeRoute = createRoute({
+const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
- component: () => (
-  <div>
-    <h1>Home</h1>
-
-    <Button>
-      Probar HeroUI
-    </Button>
-  </div>
-),
+  component: Home,
 });
+
 
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -52,16 +45,25 @@ const dashboardRoute = createRoute({
 const createArticleRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/articles/new",
-  component: CreateArticle,
+  component: () => (
+    <ProtectedRoute>
+      <CreateArticle />
+    </ProtectedRoute>
+  ),
 });
+
 const editArticleRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/articles/$id/edit",
-  component: EditArticle,
+  component: () => (
+    <ProtectedRoute>
+      <EditArticle />
+    </ProtectedRoute>
+  ),
 });
 
 const routeTree = rootRoute.addChildren([
-  homeRoute,
+  indexRoute,
   loginRoute,
   registerRoute,
   dashboardRoute,
