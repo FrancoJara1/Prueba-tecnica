@@ -19,18 +19,20 @@ export default function ArticleCard({
   const deleteMutation = useDeleteArticle();
 
   return (
-    <Card>
-      <div>
-        <h2>{article.title}</h2>
+    <Card className="article-item-card">
+      <div className="article-item-body">
+        <h2 className="article-item-title">{article.title}</h2>
 
-        <p>{article.content}</p>
+        <p className="article-item-content">{article.content}</p>
 
-        <small>
+        <small className="article-item-date">
           {new Date(article.createdAt).toLocaleDateString()}
         </small>
 
-        <div>
+        <div className="article-item-actions">
           <Button
+            className="article-item-edit"
+            size="sm"
             onClick={() =>
               navigate({
                 to: "/articles/$id/edit",
@@ -44,6 +46,8 @@ export default function ArticleCard({
           </Button>
 
           <Button
+            className="article-item-delete"
+            size="sm"
             onClick={() => {
               const confirmed = window.confirm(
                 "¿Seguro que querés eliminar este artículo?"
