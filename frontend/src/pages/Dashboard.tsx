@@ -3,8 +3,8 @@ import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 import ArticleCard from "../components/ArticleCard";
+import Header from "../components/Header";
 import { useArticles } from "../hooks/useArticles";
-import { useCurrentUser, useLogout } from "../hooks/useAuth";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -12,13 +12,6 @@ export default function Dashboard() {
   const [page, setPage] = useState(1);
 
   const limit = 3;
-
-  const {
-    data: user,
-    isLoading: sessionLoading,
-  } = useCurrentUser();
-
-  const logoutMutation = useLogout();
 
   const {
     data,
@@ -32,55 +25,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-page">
-      <header className="home-header">
-        <div className="home-container header-content">
-          <div
-            className="brand-link"
-            role="button"
-            tabIndex={0}
-            onClick={() => navigate({ to: "/" })}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                navigate({ to: "/" });
-              }
-            }}
-          >
-            <h1>Article Manager</h1>
-            <p>Descubrí artículos y autores</p>
-          </div>
-
-          <div className="user-actions">
-            {sessionLoading ? (
-              <span>Cargando...</span>
-            ) : user ? (
-              <>
-                <span className="user-name">
-                  Hola, {user.name}
-                </span>
-
-                 <Button
-                  onClick={() =>
-                    logoutMutation.mutate(undefined, {
-                      onSuccess: () => navigate({ to: "/" }),
-                    })
-                  }
-                  isDisabled={logoutMutation.isPending}
-                >
-                  {logoutMutation.isPending
-                    ? "Cerrando sesión..."
-                    : "Cerrar sesión"}
-                </Button>
-              </>
-            ) : (
-              <Button
-                onClick={() => navigate({ to: "/login" })}
-              >
-                Iniciar sesión
-              </Button>
-            )}
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <div className="dashboard-content">
         <div className="dashboard-toolbar">

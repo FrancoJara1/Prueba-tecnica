@@ -3,17 +3,11 @@ import { useState } from "react";
 
 import { useAuthors } from "../hooks/useAuthors";
 import { usePublicArticles } from "../hooks/usePublicArticles";
-import { useNavigate } from "@tanstack/react-router";
-import { useCurrentUser,useLogout } from "../hooks/useAuth";
+import Header from "../components/Header";
+
 export default function Home() {
   const [search, setSearch] = useState("");
-  const navigate = useNavigate();
-  const {
-  data: user,
-  isLoading: sessionLoading,
-} = useCurrentUser();
 
-const logoutMutation = useLogout();
   const {
     data: authors,
     isLoading: authorsLoading,
@@ -27,41 +21,7 @@ const logoutMutation = useLogout();
   
   return (
     <div className="home">
-<header className="home-header">
-  <div className="home-container header-content">
-    <div>
-      <h1>Article Manager</h1>
-      <p>Descubrí artículos y autores</p>
-    </div>
-
-    <div className="user-actions">
-      {sessionLoading ? (
-        <span>Cargando...</span>
-      ) : user ? (
-        <>
-          <span className="user-name">
-            Hola, {user.name}
-          </span>
-
-          <Button
-            onClick={() => logoutMutation.mutate()}
-            isDisabled={logoutMutation.isPending}
-          >
-            {logoutMutation.isPending
-              ? "Cerrando sesión..."
-              : "Cerrar sesión"}
-          </Button>
-        </>
-      ) : (
-        <Button
-          onClick={() => navigate({ to: "/login" })}
-        >
-          Iniciar sesión
-        </Button>
-      )}
-    </div>
-  </div>
-</header>
+      <Header />
 
       <section className="hero">
         <div className="home-container hero-content">

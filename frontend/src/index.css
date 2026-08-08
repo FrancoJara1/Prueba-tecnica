@@ -628,16 +628,9 @@ button:hover {
 .link-button:hover {
   text-decoration: underline;
 }
-.dashboard-page {
-  min-height: 100vh;
-  width: 100%;
-  background: #f4f7fb;
-}
-
-.dashboard-content {
-  width: 100%;
-  padding: 40px;
-}
+/* --- Header compartido (brand-link + dropdown "Mis artículos") --- */
+/* Pegar esto en el CSS global de la app, no en dashboard.css,          */
+/* ya que Header.tsx ahora se usa tanto en Home como en Dashboard.      */
 
 .brand-link {
   cursor: pointer;
@@ -651,6 +644,78 @@ button:hover {
   outline: 2px solid #7897b2;
   outline-offset: 4px;
   border-radius: 6px;
+}
+
+.articles-dropdown-trigger {
+  min-height: 40px !important;
+  padding: 0 16px !important;
+
+  background: #ffffff !important;
+  color: #334e68 !important;
+
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+
+  font-size: 14px !important;
+  font-weight: 600 !important;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.articles-dropdown-trigger:hover {
+  background: #edf4fa !important;
+  border-color: #7897b2 !important;
+}
+
+.articles-dropdown-popover {
+  min-width: 190px !important;
+
+  background: #ffffff !important;
+  border: 1px solid #dce5ef !important;
+  border-radius: 10px !important;
+
+  box-shadow: 0 12px 30px rgba(36, 59, 83, 0.12) !important;
+
+  padding: 6px !important;
+}
+
+.articles-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.articles-dropdown-item {
+  padding: 9px 12px !important;
+  border-radius: 6px !important;
+
+  color: #334e68 !important;
+  font-size: 14px !important;
+
+  cursor: pointer;
+
+  transition: background 0.12s ease;
+}
+
+.articles-dropdown-item:hover,
+.articles-dropdown-item[data-hovered="true"],
+.articles-dropdown-item[data-focused="true"] {
+  background: #edf4fa !important;
+  color: #243b53 !important;
+}
+
+/* --- Dashboard --- */
+.dashboard-page {
+  min-height: 100vh;
+  width: 100%;
+  background: #f4f7fb;
+}
+
+.dashboard-content {
+  width: 100%;
+  padding: 40px;
 }
 
 .dashboard-toolbar {
