@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/updateArticle";
 import Home from "./pages/Home";
+import Register from "./pages/Register";
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -30,7 +31,7 @@ const loginRoute = createRoute({
 const registerRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/register",
-  component: () => <h1>Register</h1>,
+  component: Register,
 });
 
 const dashboardRoute = createRoute({

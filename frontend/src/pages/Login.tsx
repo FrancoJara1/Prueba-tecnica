@@ -2,9 +2,11 @@ import { Button, Input } from "@heroui/react";
 import { useForm } from "@tanstack/react-form";
 import { loginSchema } from "../schemas/auth.schema";
 import { useLogin } from "../hooks/useAuth";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function Login() {
   const loginMutation = useLogin();
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -16,75 +18,95 @@ export default function Login() {
       const result = loginSchema.safeParse(value);
 
       if (!result.success) {
-        console.log(result.error.flatten());
         return;
       }
 
-      loginMutation.mutate(result.data);
+      loginMutation.mutate(result.data, {
+        onSuccess: () => {
+          navigate({
+            to: "/",
+          });
+        },
+      });
     },
   });
 
   return (
-    <div>
-      <h1>Iniciar sesión</h1>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h1>Iniciar sesión</h1>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          form.handleSubmit();
-        }}
-      >
-
-        <form.Field
-          name="email"
-          children={(field) => (
-            <Input
-              placeholder="correo@email.com"
-              value={field.state.value}
-              onChange={(e) =>
-                field.handleChange(e.target.value)
-              }
-            />
-          )}
-        />
-
-
-        <form.Field
-          name="password"
-          children={(field) => (
-            <Input
-              type="password"
-              placeholder="Contraseña"
-              value={field.state.value}
-              onChange={(e) =>
-                field.handleChange(e.target.value)
-              }
-            />
-          )}
-        />
-
-
-        <Button
-  type="submit"
->
-  {loginMutation.isPending ? "Ingresando..." : "Entrar"}
-</Button>
-
-      </form>
-
-
-      {loginMutation.isError && (
-        <p>
-          Error al iniciar sesión
+        <p className="auth-description">
+          Ingresá a tu cuenta para continuar.
         </p>
-      )}
 
-      {loginMutation.isSuccess && (
-        <p>
-          Login correcto
-        </p>
-      )}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
 
+            form.handleSubmit();
+          }}
+        >
+          <form.Field
+            name="email"
+            children={(field) => (
+              <Input
+                placeholder="correo@email.com"
+                type="email"
+                value={field.state.value}
+                onChange={(e) =>
+                  field.handleChange(e.target.value)
+                }
+              />
+            )}
+          />
+
+          <form.Field
+            name="password"
+            children={(field) => (
+              <Input
+                placeholder="Contraseña"
+                type="password"
+                value={field.state.value}
+                onChange={(e) =>
+                  field.handleChange(e.target.value)
+                }
+              />
+            )}
+          />
+
+          {loginMutation.isError && (
+            <p className="error">
+              Email o contraseña incorrectos.
+            </p>
+          )}
+
+          <Button
+            type="submit"
+            isDisabled={loginMutation.isPending}
+          >
+            {loginMutation.isPending
+              ? "Ingresando..."
+              : "Entrar"}
+          </Button>
+        </form>
+
+        <div className="auth-register">
+          <p>¿No tenés una cuenta?</p>
+
+          <Button
+            type="button"
+            onClick={() =>
+              navigate({
+                to: "/register",
+              })
+            }
+          >
+            Registrate
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -3,10 +3,17 @@ import { useState } from "react";
 
 import { useAuthors } from "../hooks/useAuthors";
 import { usePublicArticles } from "../hooks/usePublicArticles";
-
+import { useNavigate } from "@tanstack/react-router";
+import { useCurrentUser,useLogout } from "../hooks/useAuth";
 export default function Home() {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const {
+  data: user,
+  isLoading: sessionLoading,
+} = useCurrentUser();
 
+const logoutMutation = useLogout();
   const {
     data: authors,
     isLoading: authorsLoading,
@@ -17,25 +24,44 @@ export default function Home() {
     isLoading: articlesLoading,
     isError: articlesError,
   } = usePublicArticles(search);
-
+  
   return (
     <div className="home">
-      <header className="home-header">
-        <div className="home-container header-content">
-          <div>
-            <h1>Article Manager</h1>
-            <p>Descubrí artículos y autores</p>
-          </div>
+<header className="home-header">
+  <div className="home-container header-content">
+    <div>
+      <h1>Article Manager</h1>
+      <p>Descubrí artículos y autores</p>
+    </div>
+
+    <div className="user-actions">
+      {sessionLoading ? (
+        <span>Cargando...</span>
+      ) : user ? (
+        <>
+          <span className="user-name">
+            Hola, {user.name}
+          </span>
 
           <Button
-            onClick={() => {
-              window.location.href = "/login";
-            }}
+            onClick={() => logoutMutation.mutate()}
+            isDisabled={logoutMutation.isPending}
           >
-            Iniciar sesión
+            {logoutMutation.isPending
+              ? "Cerrando sesión..."
+              : "Cerrar sesión"}
           </Button>
-        </div>
-      </header>
+        </>
+      ) : (
+        <Button
+          onClick={() => navigate({ to: "/login" })}
+        >
+          Iniciar sesión
+        </Button>
+      )}
+    </div>
+  </div>
+</header>
 
       <section className="hero">
         <div className="home-container hero-content">
@@ -67,7 +93,6 @@ export default function Home() {
 
       <main className="home-container">
 
-        {/* AUTORES */}
         <section className="section">
           <div className="section-title">
             <h2>Autores</h2>
@@ -99,7 +124,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ARTÍCULOS */}
         <section className="section">
           <div className="section-title">
             <h2>

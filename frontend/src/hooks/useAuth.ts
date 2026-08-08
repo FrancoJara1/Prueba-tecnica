@@ -1,6 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
-import { login } from "../services/auth.service";
-import { saveToken } from "../services/storage";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+
+import {
+  login,
+  getCurrentUser,
+  logout,
+} from "../services/auth.service";
+
+import { saveToken, removeToken } from "../services/storage";
 
 export function useLogin() {
   return useMutation({
@@ -8,6 +18,28 @@ export function useLogin() {
 
     onSuccess: (data) => {
       saveToken(data.token);
+    },
+  });
+}
+
+export function useCurrentUser() {
+  return useQuery({
+    queryKey: ["currentUser"],
+    queryFn: getCurrentUser,
+    retry: false,
+  });
+}
+
+export function useLogout() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: logout,
+
+    onSuccess: () => {
+      removeToken();
+
+      queryClient.setQueryData(["currentUser"], null);
     },
   });
 }
