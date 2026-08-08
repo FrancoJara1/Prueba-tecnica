@@ -1,18 +1,19 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { connectDB } from "./database/mongodb";
 import { env } from "./config/env";
 import authRoutes from "./routers/auth";
 import articleRouter from "./routers/article.router";
 import userRouter from "./routers/user.router";
 import publicRouter from "./routers/public.router";
-import { cors } from "hono/cors";
+
 const app = new Hono();
 
 app.use(
   "*",
   cors({
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );

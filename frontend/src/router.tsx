@@ -8,6 +8,8 @@ import { Button } from "@heroui/react";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CreateArticle from "./pages/CreateArticle";
+import EditArticle from "./pages/updateArticle";
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
 });
@@ -47,12 +49,24 @@ const dashboardRoute = createRoute({
   </ProtectedRoute>
 ),
 });
+const createArticleRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/articles/new",
+  component: CreateArticle,
+});
+const editArticleRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/articles/$id/edit",
+  component: EditArticle,
+});
 
 const routeTree = rootRoute.addChildren([
   homeRoute,
   loginRoute,
   registerRoute,
   dashboardRoute,
+  createArticleRoute,
+  editArticleRoute,
 ]);
 
 export const router = createRouter({
