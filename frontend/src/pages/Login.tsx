@@ -1,4 +1,4 @@
-import { Button, Input } from "@heroui/react";
+import { Button, Input} from "@heroui/react";
 import { useForm } from "@tanstack/react-form";
 import { loginSchema } from "../schemas/auth.schema";
 import { useLogin } from "../hooks/useAuth";
@@ -31,82 +31,84 @@ export default function Login() {
     },
   });
 
-  return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h1>Iniciar sesión</h1>
+return (
+  <div className="auth-page">
+    <div className="auth-card">
+      <h1>Iniciar sesión</h1>
 
-        <p className="auth-description">
-          Ingresá a tu cuenta para continuar.
-        </p>
+      <p className="auth-description">
+        Ingresá a tu cuenta para continuar.
+      </p>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
+      <form
+        className="auth-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
 
-            form.handleSubmit();
-          }}
-        >
-          <form.Field
-            name="email"
-            children={(field) => (
-              <Input
-                placeholder="correo@email.com"
-                type="email"
-                value={field.state.value}
-                onChange={(e) =>
-                  field.handleChange(e.target.value)
-                }
-              />
-            )}
-          />
-
-          <form.Field
-            name="password"
-            children={(field) => (
-              <Input
-                placeholder="Contraseña"
-                type="password"
-                value={field.state.value}
-                onChange={(e) =>
-                  field.handleChange(e.target.value)
-                }
-              />
-            )}
-          />
-
-          {loginMutation.isError && (
-            <p className="error">
-              Email o contraseña incorrectos.
-            </p>
+          form.handleSubmit();
+        }}
+      >
+        <form.Field
+          name="email"
+          children={(field) => (
+            <Input
+              placeholder="correo@email.com"
+              type="email"
+              value={field.state.value}
+              onChange={(e) =>
+                field.handleChange(e.target.value)
+              }
+            />
           )}
+        />
 
-          <Button
-            type="submit"
-            isDisabled={loginMutation.isPending}
-          >
-            {loginMutation.isPending
-              ? "Ingresando..."
-              : "Entrar"}
-          </Button>
-        </form>
+        <form.Field
+          name="password"
+          children={(field) => (
+            <Input
+              placeholder="Contraseña"
+              type="password"
+              value={field.state.value}
+              onChange={(e) =>
+                field.handleChange(e.target.value)
+              }
+            />
+          )}
+        />
 
-        <div className="auth-register">
-          <p>¿No tenés una cuenta?</p>
+        {loginMutation.isError && (
+          <p className="error">
+            Email o contraseña incorrectos.
+          </p>
+        )}
 
-          <Button
-            type="button"
-            onClick={() =>
-              navigate({
-                to: "/register",
-              })
-            }
-          >
-            Registrate
-          </Button>
-        </div>
+        <Button
+          type="submit"
+          className="auth-submit"
+          isDisabled={loginMutation.isPending}
+        >
+          {loginMutation.isPending
+            ? "Ingresando..."
+            : "Entrar"}
+        </Button>
+      </form>
+
+      <div className="auth-register">
+        <p>¿No tenés una cuenta?</p>
+
+        <Button
+          type="button"
+          onClick={() =>
+            navigate({
+              to: "/register",
+            })
+          }
+        >
+          Registrate
+        </Button>
       </div>
     </div>
-  );
+  </div>
+);
 }

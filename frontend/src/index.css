@@ -628,9 +628,6 @@ button:hover {
 .link-button:hover {
   text-decoration: underline;
 }
-/* --- Header compartido (brand-link + dropdown "Mis artículos") --- */
-/* Pegar esto en el CSS global de la app, no en dashboard.css,          */
-/* ya que Header.tsx ahora se usa tanto en Home como en Dashboard.      */
 
 .brand-link {
   cursor: pointer;
@@ -944,6 +941,33 @@ button:hover {
   color: #64748b;
   font-size: 14px;
   font-weight: 600;
+}
+
+  .auth-register p { 
+    margin: 0; 
+    color: #666; 
+    font-size: 14px; 
+  } 
+  .auth-register button { 
+     padding: 0;
+  border: none;
+  background: transparent;
+  color: #527da3;
+  font-weight: 600;
+  cursor: pointer;
+  }
+  .auth-register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 25px;
+  color: #718096;
+  font-size: 14px;
+}
+
+.auth-register button:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 900px) {
