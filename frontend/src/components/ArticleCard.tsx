@@ -23,6 +23,7 @@ export default function ArticleCard({
 
   return (
     <Card className="article-item-card">
+      
       <div className="article-item-body">
         <h2 className="article-item-title">{article.title}</h2>
 

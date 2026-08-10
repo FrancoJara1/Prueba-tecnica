@@ -99,7 +99,7 @@ export default function Dashboard() {
               ))}
             </div>
 
-            {totalPages > 1 && (
+            {totalPages >= 1 && (
               <nav
                 className="dashboard-pagination"
                 aria-label="Paginación de artículos"

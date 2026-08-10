@@ -4,10 +4,10 @@ import { useState } from "react";
 import { useAuthors } from "../hooks/useAuthors";
 import { usePublicArticles } from "../hooks/usePublicArticles";
 import Header from "../components/Header";
-
+import {useNavigate} from "@tanstack/react-router";
 export default function Home() {
   const [search, setSearch] = useState("");
-
+  const navigate = useNavigate();
   const {
     data: authors,
     isLoading: authorsLoading,
@@ -126,6 +126,15 @@ export default function Home() {
               <article
                 className="article-card"
                 key={article._id}
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate({ to: `/articles/${article._id}`})}
+              
+                 onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    navigate({ to: `/articles/${article._id}`});
+                  }
+                }}
               >
                 {article.imageUrl && (
                   <img
@@ -140,16 +149,6 @@ export default function Home() {
                   <p className="article-author">
                     Por {article.author?.name}
                   </p>
-
-                  <p className="article-description">
-                    {article.content}
-                  </p>
-
-                  <small>
-                    {new Date(
-                      article.createdAt
-                    ).toLocaleDateString()}
-                  </small>
                 </div>
               </article>
             ))}

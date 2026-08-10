@@ -11,6 +11,7 @@ import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/updateArticle";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
+import Article from "./pages/Article";
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -63,6 +64,12 @@ const editArticleRoute = createRoute({
   ),
 });
 
+const articlesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/articles/$id",
+  component: Article,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   loginRoute,
@@ -70,6 +77,7 @@ const routeTree = rootRoute.addChildren([
   dashboardRoute,
   createArticleRoute,
   editArticleRoute,
+  articlesRoute,
 ]);
 
 export const router = createRouter({
