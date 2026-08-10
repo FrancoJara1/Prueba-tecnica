@@ -1,16 +1,33 @@
-import { Button, Input} from "@heroui/react";
+import { Button, TextField, Label, Input, TextArea, FieldError } from "@heroui/react";
 import { useForm } from "@tanstack/react-form";
 import { createArticleSchema } from "../schemas/article.schema";
 import { useCreateArticle } from "../hooks/useCreateArticle";
 import { useNavigate } from "@tanstack/react-router";
+import Header from "../components/Header";
+
+function getFieldErrorMessage(errors: unknown[]): string | undefined {
+  const first = errors[0];
+  if (!first) return undefined;
+  if (typeof first === "string") return first;
+  if (typeof first === "object" && first !== null && "message" in first) {
+    return (first as { message?: string }).message;
+  }
+  return String(first);
+}
+
 export default function CreateArticle() {
   const createMutation = useCreateArticle();
   const navigate = useNavigate();
+
   const form = useForm({
     defaultValues: {
       title: "",
       content: "",
       imageUrl: "",
+    },
+
+    validators: {
+      onChange: createArticleSchema,
     },
 
     onSubmit: async ({ value }) => {
@@ -21,73 +38,122 @@ export default function CreateArticle() {
         return;
       }
 
-       createMutation.mutate(validation.data, {
-    onSuccess: () => {
-      navigate({
-        to: "/dashboard",
+      createMutation.mutate(validation.data, {
+        onSuccess: () => {
+          navigate({
+            to: "/dashboard",
+          });
+        },
       });
-    },
-  });
     },
   });
 
   return (
-    <div>
-      <h1>Crear artículo</h1>
+    <div className="create-article-page">
+      <Header />
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          form.handleSubmit();
-        }}
-      >
-        <form.Field
-          name="title"
-          children={(field) => (
-            <Input
-              placeholder="Título"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
+      <main className="create-article-content">
+        <div className="create-article-card">
+          <h1>Crear artículo</h1>
+
+          <p className="auth-description">
+            Compartí un nuevo artículo con la comunidad.
+          </p>
+
+          <form
+            className="auth-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+          >
+            <form.Field name="title">
+              {(field) => (
+                <TextField
+                  isInvalid={
+                    field.state.meta.isTouched &&
+                    field.state.meta.errors.length > 0
+                  }
+                >
+                  <Label>Título</Label>
+                  <Input
+                    placeholder="Título del artículo"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                  <FieldError>
+                    {getFieldErrorMessage(field.state.meta.errors)}
+                  </FieldError>
+                </TextField>
+              )}
+            </form.Field>
+
+            <form.Field name="content">
+              {(field) => (
+                <TextField
+                  isInvalid={
+                    field.state.meta.isTouched &&
+                    field.state.meta.errors.length > 0
+                  }
+                >
+                  <Label>Contenido</Label>
+                  <TextArea
+                    placeholder="Escribí el contenido del artículo"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                    rows={8}
+                  />
+                  <FieldError>
+                    {getFieldErrorMessage(field.state.meta.errors)}
+                  </FieldError>
+                </TextField>
+              )}
+            </form.Field>
+
+            <form.Field name="imageUrl">
+              {(field) => (
+                <TextField
+                  isInvalid={
+                    field.state.meta.isTouched &&
+                    field.state.meta.errors.length > 0
+                  }
+                >
+                  <Label>URL de imagen (opcional)</Label>
+                  <Input
+                    placeholder="https://..."
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                  <FieldError>
+                    {getFieldErrorMessage(field.state.meta.errors)}
+                  </FieldError>
+                </TextField>
+              )}
+            </form.Field>
+
+            <Button
+              type="submit"
+              variant="primary"
+              fullWidth
+              isDisabled={createMutation.isPending}
+            >
+              {createMutation.isPending ? "Creando..." : "Crear artículo"}
+            </Button>
+          </form>
+
+          {createMutation.isError && (
+            <p className="error">Error al crear el artículo.</p>
           )}
-        />
 
-        <form.Field
-          name="content"
-          children={(field) => (
-            <textarea
-              placeholder="Contenido"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
+          {createMutation.isSuccess && (
+            <p className="success">Artículo creado correctamente.</p>
           )}
-        />
-
-        <form.Field
-          name="imageUrl"
-          children={(field) => (
-            <Input
-              placeholder="URL de imagen (opcional)"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
-          )}
-        />
-
-        <Button type="submit">
-          {createMutation.isPending
-            ? "Creando..."
-            : "Crear artículo"}
-        </Button>
-      </form>
-
-      {createMutation.isError && (
-        <p>Error al crear el artículo.</p>
-      )}
-
-      {createMutation.isSuccess && (
-        <p>Artículo creado correctamente.</p>
-      )}
+        </div>
+      </main>
     </div>
   );
 }

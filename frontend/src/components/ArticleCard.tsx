@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, Button } from "@heroui/react";
 import { useNavigate } from "@tanstack/react-router";
 import { useDeleteArticle } from "../hooks/useDeleteArticle";
@@ -18,6 +19,8 @@ export default function ArticleCard({
   const navigate = useNavigate();
   const deleteMutation = useDeleteArticle();
 
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+
   return (
     <Card className="article-item-card">
       <div className="article-item-body">
@@ -29,41 +32,62 @@ export default function ArticleCard({
           {new Date(article.createdAt).toLocaleDateString()}
         </small>
 
-        <div className="article-item-actions">
-          <Button
-            className="article-item-edit"
-            size="sm"
-            onClick={() =>
-              navigate({
-                to: "/articles/$id/edit",
-                params: {
-                  id: article._id,
-                },
-              })
-            }
-          >
-            Editar
-          </Button>
+        {confirmingDelete ? (
+          <div className="article-item-confirm">
+            <span className="article-item-confirm-text">
+              ¿Eliminar este artículo?
+            </span>
 
-          <Button
-            className="article-item-delete"
-            size="sm"
-            onClick={() => {
-              const confirmed = window.confirm(
-                "¿Seguro que querés eliminar este artículo?"
-              );
+            <div className="article-item-confirm-actions">
+              <Button
+                variant="tertiary"
+                size="sm"
+                onPress={() => setConfirmingDelete(false)}
+                isDisabled={deleteMutation.isPending}
+              >
+                No
+              </Button>
 
-              if (confirmed) {
-                deleteMutation.mutate(article._id);
+              <Button
+                variant="danger"
+                size="sm"
+                onPress={() => {
+                  deleteMutation.mutate(article._id);
+                }}
+                isDisabled={deleteMutation.isPending}
+              >
+                {deleteMutation.isPending ? "Eliminando..." : "Sí, eliminar"}
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="article-item-actions">
+            <Button
+              className="article-item-edit"
+              variant="outline"
+              size="sm"
+              onPress={() =>
+                navigate({
+                  to: "/articles/$id/edit",
+                  params: {
+                    id: article._id,
+                  },
+                })
               }
-            }}
-            isDisabled={deleteMutation.isPending}
-          >
-            {deleteMutation.isPending
-              ? "Eliminando..."
-              : "Eliminar"}
-          </Button>
-        </div>
+            >
+              Editar
+            </Button>
+
+            <Button
+              className="article-item-delete"
+              variant="danger-soft"
+              size="sm"
+              onPress={() => setConfirmingDelete(true)}
+            >
+              Eliminar
+            </Button>
+          </div>
+        )}
       </div>
     </Card>
   );

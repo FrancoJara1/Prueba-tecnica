@@ -1,6 +1,6 @@
 import { Button } from "@heroui/react";
 import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ArticleCard from "../components/ArticleCard";
 import Header from "../components/Header";
@@ -23,6 +23,12 @@ export default function Dashboard() {
   const totalPages = data?.totalPages ?? 1;
   const hasArticles = articles.length > 0;
 
+  useEffect(() => {
+    if (data && page > data.totalPages && data.totalPages > 0) {
+      setPage(data.totalPages);
+    }
+  }, [data, page]);
+
   return (
     <div className="dashboard-page">
       <Header />
@@ -40,7 +46,7 @@ export default function Dashboard() {
 
           <Button
             className="dashboard-cta"
-            onClick={() =>
+            onPress={() =>
               navigate({
                 to: "/articles/new",
               })
@@ -71,7 +77,7 @@ export default function Dashboard() {
 
             <Button
               className="dashboard-cta"
-              onClick={() =>
+              onPress={() =>
                 navigate({
                   to: "/articles/new",
                 })
