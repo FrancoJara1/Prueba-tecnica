@@ -76,16 +76,17 @@ export default function Header() {
               </Dropdown>
 
               <Button
-                onClick={() =>
-                  logoutMutation.mutate(undefined, {
-                    onSuccess: () => navigate({ to: "/" }),
-                  })
-                }
-                isDisabled={logoutMutation.isPending}
-              >
-                {logoutMutation.isPending
-                  ? "Cerrando sesión..."
-                  : "Cerrar sesión"}
+                  className="articles-dropdown-trigger"
+                  onClick={() =>
+                    logoutMutation.mutate(undefined, {
+                     onSuccess: () => navigate({ to: "/" }),
+                      })
+                       }
+                     isDisabled={logoutMutation.isPending}
+                        >
+                       {logoutMutation.isPending
+                         ? "Cerrando sesión..."
+                        : "Cerrar sesión"}
               </Button>
             </>
           ) : (
