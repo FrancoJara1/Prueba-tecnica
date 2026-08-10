@@ -154,6 +154,7 @@ export default function CreateArticle() {
           )}
         </div>
       </main>
+      <footer className="home-footer">Article Manager · Prueba técnica Fullstack</footer>
     </div>
   );
 }

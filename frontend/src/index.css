@@ -703,18 +703,27 @@ button:hover {
   color: #243b53 !important;
 }
 
-/* --- Dashboard --- */
 .dashboard-page {
+    display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  width: 100%;
-  background: #f4f7fb;
 }
 
 .dashboard-content {
   width: 100%;
   padding: 40px;
+  flex:1;
 }
-
+.dashboard-footer {
+  margin-top: auto; 
+  width: 100%;
+  padding: 30px;
+  background: #243b53;
+  border-top: 1px solid #1e3449;
+  text-align: center;
+  color: #d9e2ec;
+  font-size: 14px;
+}
 .dashboard-toolbar {
   display: flex;
   align-items: center;

@@ -227,6 +227,9 @@ export default function EditArticle() {
 
         </div>
       </main>
+      <footer className="home-footer">
+        Article Manager · Prueba técnica Fullstack
+      </footer>
     </div>
   );
 }

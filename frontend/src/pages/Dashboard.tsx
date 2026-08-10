@@ -130,6 +130,10 @@ export default function Dashboard() {
           </>
         )}
       </div>
+
+      <footer className="dashboard-footer">
+        Article Manager · Prueba técnica Fullstack
+      </footer>
     </div>
   );
 }
