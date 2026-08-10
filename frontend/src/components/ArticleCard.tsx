@@ -40,8 +40,8 @@ export default function ArticleCard({
 
             <div className="article-item-confirm-actions">
               <Button
-                variant="tertiary"
                 size="sm"
+                className="btn-cancel"
                 onPress={() => setConfirmingDelete(false)}
                 isDisabled={deleteMutation.isPending}
               >
@@ -49,8 +49,8 @@ export default function ArticleCard({
               </Button>
 
               <Button
-                variant="danger"
                 size="sm"
+                className="btn-confirm-delete"
                 onPress={() => {
                   deleteMutation.mutate(article._id);
                 }}
@@ -59,12 +59,16 @@ export default function ArticleCard({
                 {deleteMutation.isPending ? "Eliminando..." : "Sí, eliminar"}
               </Button>
             </div>
+            {deleteMutation.isError && (
+              <p className="error">
+                No se pudo eliminar el artículo. Intentá nuevamente.
+              </p>
+            )}
           </div>
         ) : (
           <div className="article-item-actions">
             <Button
               className="article-item-edit"
-              variant="outline"
               size="sm"
               onPress={() =>
                 navigate({
@@ -80,7 +84,6 @@ export default function ArticleCard({
 
             <Button
               className="article-item-delete"
-              variant="danger-soft"
               size="sm"
               onPress={() => setConfirmingDelete(true)}
             >

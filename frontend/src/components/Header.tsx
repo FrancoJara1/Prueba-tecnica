@@ -90,7 +90,9 @@ export default function Header() {
               </Button>
             </>
           ) : (
-            <Button onClick={() => navigate({ to: "/login" })}>
+            <Button 
+             className="articles-dropdown-trigger"
+            onClick={() => navigate({ to: "/login" })}>
               Iniciar sesión
             </Button>
           )}

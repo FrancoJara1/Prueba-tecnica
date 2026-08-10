@@ -798,22 +798,77 @@ button:hover {
   font-size: 12px;
 }
 
-.article-item-actions {
+.article-item-actions,
+.article-item-confirm-actions {
   display: flex;
-  gap: 10px;
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid #edf2f7;
+  gap: 0.8rem;
+  margin-top: 1.0rem;
 }
 
 .article-item-edit {
-  border-color: #cbd5e1 !important;
-  color: #334e68 !important;
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
 }
 
 .article-item-edit:hover {
-  border-color: #7897b2 !important;
-  background: #edf4fa !important;
+  background-color: #f3f4f6;
+}
+
+.article-item-delete {
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-weight: 600;
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.article-item-delete:hover {
+  background-color: #fecaca;
+}
+
+.btn-cancel {
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #f3f4f6;
+}
+
+.btn-confirm-delete {
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-weight: 600;
+  background-color: #dc2626;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease;
+}
+
+.btn-confirm-delete:hover {
+  background-color: #b91c1c;
+}
+
+.btn-confirm-delete:active {
+  background-color: #991b1b;
+}
+
+.btn-confirm-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .dashboard-state {
