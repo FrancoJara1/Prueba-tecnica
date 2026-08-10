@@ -757,6 +757,7 @@ button:hover {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
+  align-items: stretch;
 }
 
 .article-item-card {
@@ -764,7 +765,10 @@ button:hover {
   border: 1px solid #dce5ef !important;
   border-radius: 14px !important;
   box-shadow: none !important;
-
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+   cursor: pointer;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -781,6 +785,22 @@ button:hover {
   display: flex;
   flex-direction: column;
   padding: 22px;
+  flex: 1;
+}
+.article-card-image img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+.article-item-card .article-card {
+  display: block;
+}
+.article-item-card .article-card img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
 }
 
 .article-item-title {

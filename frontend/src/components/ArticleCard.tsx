@@ -21,13 +21,30 @@ export default function ArticleCard({
 
   const [confirmingDelete, setConfirmingDelete] = useState(false);
 
+  const goToArticle = () => {
+    navigate({ to: `/articles/${article._id}` });
+  };
+
   return (
-    <Card className="article-item-card">
-      
+    <Card
+      className="article-item-card"
+      role="button"
+      tabIndex={0}
+      onClick={goToArticle}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          goToArticle();
+        }
+      }}
+    >
+      {article.imageUrl && (
+        <div className="article-card-image">
+          <img src={article.imageUrl} alt={article.title} />
+        </div>
+      )}
+
       <div className="article-item-body">
         <h2 className="article-item-title">{article.title}</h2>
-
-        <p className="article-item-content">{article.content}</p>
 
         <small className="article-item-date">
           {new Date(article.createdAt).toLocaleDateString()}
@@ -39,7 +56,10 @@ export default function ArticleCard({
               ¿Eliminar este artículo?
             </span>
 
-            <div className="article-item-confirm-actions">
+            <div
+              className="article-item-confirm-actions"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Button
                 size="sm"
                 className="btn-cancel"
@@ -67,7 +87,10 @@ export default function ArticleCard({
             )}
           </div>
         ) : (
-          <div className="article-item-actions">
+          <div
+            className="article-item-actions"
+            onClick={(e) => e.stopPropagation()}
+          >
             <Button
               className="article-item-edit"
               size="sm"
