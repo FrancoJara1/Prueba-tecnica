@@ -4,7 +4,11 @@ import { useState } from "react";
 import { useAuthors } from "../hooks/useAuthors";
 import { usePublicArticles } from "../hooks/usePublicArticles";
 import Header from "../components/Header";
-import {useNavigate} from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
+
+const MAX_AUTHORS = 8;
+const MAX_ARTICLES = 9;
+
 export default function Home() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -18,7 +22,10 @@ export default function Home() {
     isLoading: articlesLoading,
     isError: articlesError,
   } = usePublicArticles(search);
-  
+
+  const visibleAuthors = authors?.slice(0, MAX_AUTHORS) ?? [];
+  const visibleArticles = articles?.slice(0, MAX_ARTICLES) ?? [];
+
   return (
     <div className="home">
       <Header />
@@ -52,38 +59,6 @@ export default function Home() {
       </section>
 
       <main className="home-container">
-
-        <section className="section">
-          <div className="section-title">
-            <h2>Autores</h2>
-            <p>
-              Conocé a los autores de nuestra comunidad.
-            </p>
-          </div>
-
-          {authorsLoading && (
-            <p>Cargando autores...</p>
-          )}
-
-          <div className="authors-grid">
-            {authors?.map((author: any) => (
-              <div
-                className="author-card"
-                key={author._id}
-              >
-                <h3>{author.name}</h3>
-
-                <p>
-                  {author.articles}{" "}
-                  {author.articles === 1
-                    ? "artículo"
-                    : "artículos"}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
         <section className="section">
           <div className="section-title">
             <h2>
@@ -122,17 +97,16 @@ export default function Home() {
             )}
 
           <div className="articles-grid">
-            {articles?.map((article: any) => (
+            {visibleArticles.map((article: any) => (
               <article
                 className="article-card"
                 key={article._id}
                 role="button"
                 tabIndex={0}
-                onClick={() => navigate({ to: `/articles/${article._id}`})}
-              
-                 onKeyDown={(e) => {
+                onClick={() => navigate({ to: `/articles/${article._id}` })}
+                onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
-                    navigate({ to: `/articles/${article._id}`});
+                    navigate({ to: `/articles/${article._id}` });
                   }
                 }}
               >
@@ -151,6 +125,36 @@ export default function Home() {
                   </p>
                 </div>
               </article>
+            ))}
+          </div>
+        </section>
+         <section className="section">
+          <div className="section-title">
+            <h2>Autores destacados</h2>
+            <p>
+              Conocé a los autores de nuestra comunidad.
+            </p>
+          </div>
+
+          {authorsLoading && (
+            <p>Cargando autores...</p>
+          )}
+
+          <div className="authors-grid">
+            {visibleAuthors.map((author: any) => (
+              <div
+                className="author-card"
+                key={author._id}
+              >
+                <h3>{author.name}</h3>
+
+                <p>
+                  {author.articles}{" "}
+                  {author.articles === 1
+                    ? "artículo"
+                    : "artículos"}
+                </p>
+              </div>
             ))}
           </div>
         </section>

@@ -32,7 +32,7 @@ body {
 
 .home-header {
   width: 100%;
-  background: #ffffff;
+  background: #96b9da;
   border-bottom: 1px solid #dce5ef;
 }
 
@@ -787,12 +787,7 @@ button:hover {
   padding: 22px;
   flex: 1;
 }
-.article-card-image img {
-  display: block;
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
+
 .article-item-card .article-card {
   display: block;
 }
@@ -1077,7 +1072,12 @@ button:hover {
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(36, 59, 83, 0.08);
 }
-
+.article-card-image img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
 .create-article-card h1 {
   margin: 0;
   text-align: center;
