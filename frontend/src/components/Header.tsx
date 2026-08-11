@@ -13,6 +13,8 @@ export default function Header() {
 
   const logoutMutation = useLogout();
 
+  const firstName = user?.name?.trim().split(/\s+/)[0] ?? "";
+
   return (
     <header className="home-header">
       <div className="home-container header-content">
@@ -36,8 +38,8 @@ export default function Header() {
             <span>Cargando...</span>
           ) : user ? (
             <>
-              <span className="user-name">
-                Hola, {user.name}
+              <span className="user-name" title={user.name}>
+                Hola, {firstName}
               </span>
 
               <Dropdown>
@@ -76,23 +78,24 @@ export default function Header() {
               </Dropdown>
 
               <Button
-                  className="articles-dropdown-trigger"
-                  onClick={() =>
-                    logoutMutation.mutate(undefined, {
-                     onSuccess: () => navigate({ to: "/" }),
-                      })
-                       }
-                     isDisabled={logoutMutation.isPending}
-                        >
-                       {logoutMutation.isPending
-                         ? "Cerrando sesión..."
-                        : "Cerrar sesión"}
+                className="articles-dropdown-trigger"
+                onClick={() =>
+                  logoutMutation.mutate(undefined, {
+                    onSuccess: () => navigate({ to: "/" }),
+                  })
+                }
+                isDisabled={logoutMutation.isPending}
+              >
+                {logoutMutation.isPending
+                  ? "Cerrando sesión..."
+                  : "Cerrar sesión"}
               </Button>
             </>
           ) : (
-            <Button 
-             className="articles-dropdown-trigger"
-            onClick={() => navigate({ to: "/login" })}>
+            <Button
+              className="articles-dropdown-trigger"
+              onClick={() => navigate({ to: "/login" })}
+            >
               Iniciar sesión
             </Button>
           )}

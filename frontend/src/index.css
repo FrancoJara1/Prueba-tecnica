@@ -305,6 +305,7 @@ body {
 
 .article-content {
   padding: 22px;
+    min-height: 140px;
 }
 
 .article-content h3 {
@@ -1056,7 +1057,13 @@ button:hover {
   width: 100%;
   background: #f4f7fb;
 }
-
+.user-name {
+  font-weight: 600;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .create-article-content {
   width: 100%;
   padding: 40px;

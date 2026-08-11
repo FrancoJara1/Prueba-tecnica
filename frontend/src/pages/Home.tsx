@@ -119,7 +119,10 @@ export default function Home() {
 
                 <div className="article-content">
                   <h3>{article.title}</h3>
-
+                 
+                <p className="article-description">
+                    {article.content}
+                 </p>
                   <p className="article-author">
                     Por {article.author?.name}
                   </p>
