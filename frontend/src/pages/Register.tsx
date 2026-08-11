@@ -1,8 +1,9 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
-import { Button, TextField, Label, Input, FieldError } from "@heroui/react";
-import { api } from "../services/api";
+import { Button, TextField, Label, Input, FieldError,toast } from "@heroui/react";
 import { registerSchema } from "../schemas/register.schema";
+import { useRegister } from "../hooks/useAuth";
+
 
 function getFieldErrorMessage(errors: unknown[]): string | undefined {
   const first = errors[0];
@@ -16,7 +17,7 @@ function getFieldErrorMessage(errors: unknown[]): string | undefined {
 
 export default function Register() {
   const navigate = useNavigate();
-
+  const registerMutation = useRegister();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -29,28 +30,28 @@ export default function Register() {
       onChange: registerSchema,
     },
 
-    onSubmit: async ({ value }) => {
-      const result = registerSchema.safeParse(value);
+onSubmit: async ({ value }) => {
+  const result = registerSchema.safeParse(value);
 
-      if (!result.success) {
-        return;
-      }
+  if (!result.success) {
+    return;
+  }
 
-      try {
-        await api.post("/api/auth/sign-up/email", {
-          name: result.data.name,
-          email: result.data.email,
-          password: result.data.password,
-        });
-
+  registerMutation.mutate(
+    {
+      name: result.data.name,
+      email: result.data.email,
+      password: result.data.password,
+    },
+    {
+      onSuccess: () => {
         navigate({
           to: "/login",
         });
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  });
+      },
+    }
+  );}
+});
 
   return (
     <div className="auth-page">
@@ -151,9 +152,19 @@ export default function Register() {
               </TextField>
             )}
           </form.Field>
-
-          <Button type="submit" variant="primary" fullWidth>
-            Crear cuenta
+           {registerMutation.isError && (
+              <p className="error">
+              No se pudo crear la cuenta. Verificá los datos e intentá nuevamente.
+              </p>
+)}
+         <Button
+          type="submit"
+          variant="primary"
+          isDisabled={registerMutation.isPending}
+          >
+            {registerMutation.isPending
+            ? "Creando cuenta..."
+            : "Crear cuenta"}
           </Button>
         </form>
 

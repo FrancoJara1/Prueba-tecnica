@@ -6,6 +6,7 @@ import {
 
 import {
   login,
+  register,
   getCurrentUser,
   logout,
 } from "../services/auth.service";
@@ -18,6 +19,19 @@ export function useLogin() {
 
     onSuccess: (data) => {
       saveToken(data.token);
+    },
+  });
+}
+export function useRegister() {
+  return useMutation({
+    mutationFn: async (data: {
+      name: string;
+      email: string;
+      password: string;
+    }) => {
+      const response = await register(data);
+
+      return response;
     },
   });
 }
