@@ -2,12 +2,15 @@ import { api } from "./api";
 
 export async function getArticles(
   page = 1,
-  limit = 10
+  limit = 10,
+  order: "asc" | "desc" = "desc"
 ) {
   const response = await api.get("/articles", {
     params: {
       page,
       limit,
+      sortBy: "createdAt",
+      order,
     },
   });
 

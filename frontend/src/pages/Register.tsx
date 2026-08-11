@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
-import { Button, TextField, Label, Input, FieldError,toast } from "@heroui/react";
+import { Button, TextField, Label, Input, FieldError } from "@heroui/react";
 import { registerSchema } from "../schemas/register.schema";
 import { useRegister } from "../hooks/useAuth";
 
