@@ -7,10 +7,10 @@ import Header from "../components/Header";
 import { useNavigate } from "@tanstack/react-router";
 
 const MAX_AUTHORS = 8;
-const MAX_ARTICLES = 9;
 
 export default function Home() {
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const {
     data: authors,
@@ -21,10 +21,10 @@ export default function Home() {
     data: articles,
     isLoading: articlesLoading,
     isError: articlesError,
-  } = usePublicArticles(search);
+  } = usePublicArticles(search,page);
 
   const visibleAuthors = authors?.slice(0, MAX_AUTHORS) ?? [];
-  const visibleArticles = articles?.slice(0, MAX_ARTICLES) ?? [];
+  const visibleArticles = articles?.data ?? [];
 
   return (
     <div className="home">
@@ -41,20 +41,31 @@ export default function Home() {
           </p>
 
           <div className="search-container">
-            <Input
-              placeholder="Buscar artículos..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+  <Input
+    type="text"
+    aria-label="Buscar artículos"
+    placeholder="Buscar artículos por título, contenido o autor..."
+    value={search}
+    onChange={(e) => {
+      setPage(1);
+      setSearch(e.target.value);
+    }}
+  />
 
-            <Button
-              onClick={() =>
-                setSearch(search.trim())
-              }
-            >
-              Buscar
-            </Button>
-          </div>
+  {search && (
+    <Button
+      isIconOnly
+      variant="ghost"
+      aria-label="Limpiar búsqueda"
+      onPress={() => {
+        setPage(1);
+        setSearch("");
+      }}
+    >
+      ✕
+    </Button>
+  )}
+</div>
         </div>
       </section>
 
@@ -67,11 +78,11 @@ export default function Home() {
                 : "Últimos artículos"}
             </h2>
 
-            <p>
-              {search
-                ? "Artículos encontrados."
-                : "Descubrí los últimos artículos publicados."}
-            </p>
+           <p>
+            {search
+              ? `${articles?.total ?? 0} artículos encontrados.`
+              : `Mostrando ${articles?.total ?? 0} artículos publicados.`}
+          </p>
           </div>
 
           {articlesLoading && (
@@ -130,6 +141,31 @@ export default function Home() {
               </article>
             ))}
           </div>
+          {!articlesLoading && !articlesError && (articles?.totalPages ?? 0) > 1 && (
+  <div className="pagination">
+    <Button
+      className="pagination-button"
+      variant="ghost"
+      isDisabled={page === 1}
+      onPress={() => setPage((current) => current - 1)}
+    >
+      ← Anterior
+    </Button>
+
+    <span>
+      Página {page} de {articles?.totalPages}
+    </span>
+
+    <Button
+      className="pagination-button"
+      variant="ghost"
+      isDisabled={page === articles?.totalPages}
+      onPress={() => setPage((current) => current + 1)}
+    >
+      Siguiente →
+    </Button>
+  </div>
+)}
         </section>
          <section className="section">
           <div className="section-title">
@@ -166,6 +202,7 @@ export default function Home() {
       <footer className="home-footer">
         Article Manager · Prueba técnica Fullstack
       </footer>
+      
     </div>
   );
 }

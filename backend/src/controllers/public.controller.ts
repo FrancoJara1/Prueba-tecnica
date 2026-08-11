@@ -34,10 +34,37 @@ export const getAuthors = asyncHandler(async (c) => {
 });
 
 export const searchArticles = asyncHandler(async (c) => {
-
   const search = c.req.query("search") || "";
 
-  const articles = await db
+  const page = Number(c.req.query("page")) || 1;
+  const limit = Number(c.req.query("limit")) || 9;
+
+  const skip = (page - 1) * limit;
+
+  const searchFilter = {
+    $or: [
+      {
+        title: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+      {
+        content: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+      {
+        "author.name": {
+          $regex: search,
+          $options: "i",
+        },
+      },
+    ],
+  };
+
+  const result = await db
     .collection("articles")
     .aggregate([
       {
@@ -52,49 +79,53 @@ export const searchArticles = asyncHandler(async (c) => {
         $unwind: "$author",
       },
       {
-        $match: {
-          $or: [
+        $match: searchFilter,
+      },
+      {
+        $facet: {
+          data: [
             {
-              title: {
-                $regex: search,
-                $options: "i",
+              $sort: {
+                createdAt: -1,
               },
             },
             {
-              content: {
-                $regex: search,
-                $options: "i",
-              },
+              $skip: skip,
             },
             {
-              "author.name": {
-                $regex: search,
-                $options: "i",
+              $limit: limit,
+            },
+            {
+              $project: {
+                _id: 1,
+                title: 1,
+                content: 1,
+                imageUrl: 1,
+                createdAt: 1,
+                author: {
+                  name: "$author.name",
+                },
               },
             },
           ],
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          title: 1,
-          content: 1,
-          imageUrl: 1,
-          createdAt: 1,
-          author: {
-            name: "$author.name",
-          },
-        },
-      },
-      {
-        $sort: {
-          createdAt: -1,
+          total: [
+            {
+              $count: "count",
+            },
+          ],
         },
       },
     ])
     .toArray();
 
-  return c.json(articles);
+  const data = result[0]?.data ?? [];
+  const total = result[0]?.total[0]?.count ?? 0;
 
+  return c.json({
+    page,
+    limit,
+    total,
+    totalPages: Math.ceil(total / limit),
+    data,
+  });
 });

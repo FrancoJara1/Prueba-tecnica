@@ -6,10 +6,16 @@ export async function getAuthors() {
   return response.data;
 }
 
-export async function searchPublicArticles(search = "") {
+export async function searchPublicArticles(
+  search = "",
+  page = 1,
+  limit = 9
+) {
   const response = await api.get("/public/articles", {
     params: {
       search,
+      page,
+      limit,
     },
   });
 

@@ -93,6 +93,7 @@ export default function ArticleCard({
           >
             <Button
               className="article-item-edit"
+              aria-label="Editar artículo"
               size="sm"
               onPress={() =>
                 navigate({
