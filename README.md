@@ -8,17 +8,31 @@ El proyecto implementa autenticación, validación de datos, búsqueda, paginaci
 
 ## 🚀 Tecnologías
 
-* **Node.js**
-* **TypeScript**
-* **Hono** (Framework HTTP)
-* **MongoDB Driver**
-* **MongoDB Atlas**
-* **Better Auth** (Autenticación)
-* **Zod** (Validaciones)
+## Backend
+
+- **Node.js**
+- **TypeScript**
+- **Hono** (Framework HTTP)
+- **MongoDB Driver**
+- **MongoDB Atlas**
+- **Better Auth** (Autenticación)
+- **Zod** (Validaciones)
+
+## Frontend
+
+- **React**
+- **TypeScript**
+- **Vite**
+- **TanStack Form** (gestión de formularios)
+- **TanStack Query** (manejo de datos y comunicación con la API)
+- **TanStack Router** (routing y navegación)
+- **Axios** (peticiones HTTP)
+- **HeroUI** (componentes de interfaz)
+- **Zod** (validación de datos)
 
 ---
 
-## 📁 Arquitectura
+## 📁 Arquitectura del Backend
 
 ```
 src/
@@ -32,6 +46,18 @@ src/
 └── utils/           # Utilidades
 ```
 
+## 📁 Arquitectura del Frontend
+
+````
+src/
+├── assets/      # Imágenes, iconos y otros recursos
+├── components/  # Componentes reutilizables de la interfaz
+├── hooks/       # Custom hooks para lógica reutilizable
+├── lib/         # Configuraciones y utilidades de librerías
+├── pages/       # Páginas principales de la aplicación
+├── routes/      # Configuración y definición de rutas
+├── schemas/     # Schemas de validación con Zod
+├── services/    # Servicios y llamadas a la API
 ---
 
 ## ⚙️ Instalación
@@ -40,7 +66,7 @@ Clonar el repositorio:
 
 ```bash
 git clone <repository-url>
-```
+````
 
 Instalar dependencias:
 
@@ -198,16 +224,16 @@ Solo el propietario puede eliminarlo.
 
 # ✅ Características implementadas
 
-* Registro e inicio de sesión de usuarios.
-* Gestión de sesiones con Better Auth.
-* CRUD completo de artículos.
-* Protección de rutas privadas.
-* Control de permisos por propietario.
-* Validación de datos con Zod.
-* Búsqueda por título y contenido.
-* Paginación.
-* Ordenamiento dinámico.
-* Índices MongoDB para optimización.
+- Registro e inicio de sesión de usuarios.
+- Gestión de sesiones con Better Auth.
+- CRUD completo de artículos.
+- Protección de rutas privadas.
+- Control de permisos por propietario.
+- Validación de datos con Zod.
+- Búsqueda por título y contenido.
+- Paginación.
+- Ordenamiento dinámico.
+- Índices MongoDB para optimización.
 
 ---
 
@@ -225,5 +251,26 @@ Flujo recomendado:
 
 ---
 
+## 🤖 Uso de herramientas de IA
 
+Durante el desarrollo de la prueba se utilizaron herramientas de inteligencia artificial como apoyo al proceso de desarrollo.
 
+### ChatGPT
+
+Se utilizó como herramienta de asistencia para:
+
+- Recibir orientación sobre la integración de **Hono, Better Auth, Zod y TanStack**.
+- Resolver dudas sobre las tecnologías utilizadas en el proyecto.
+- Analizar y solucionar errores durante el desarrollo.
+- Comprender conceptos y buenas prácticas relacionadas con autenticación, validación, APIs REST y manejo de datos.
+
+### Claude
+
+Se utilizó como herramienta complementaria para:
+
+- Revisar código y detectar posibles errores.
+- Analizar decisiones de arquitectura y organización del proyecto.
+- Obtener diferentes enfoques para resolver problemas durante el desarrollo.
+- Revisar implementaciones y recibir sugerencias de mejora.
+
+Las herramientas de IA fueron utilizadas como apoyo durante el proceso de desarrollo. Las soluciones propuestas fueron analizadas, adaptadas e integradas manualmente en el proyecto, realizando las pruebas necesarias para verificar su correcto funcionamiento.
