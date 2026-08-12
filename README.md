@@ -71,7 +71,8 @@ git clone <repository-url>
 Instalar dependencias tanto en backend como en frontend:
 
 ```bash
-npm install
+cd backend: npm install
+cd frontend: npm install
 ```
 
 Crear archivo `.env` para backend:
@@ -317,4 +318,4 @@ Las herramientas de IA fueron utilizadas como apoyo durante el proceso de desarr
 
 **Link a la pagina: https://prueba-tecnica-three-self.vercel.app**
 
-**Link al backemd: https://prueba-tecnica-tyzr.onrender.com**
+**Link al backend: https://prueba-tecnica-tyzr.onrender.com**
