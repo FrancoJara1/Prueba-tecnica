@@ -7,12 +7,12 @@ const users = [
   {
     name: "Juan Pérez",
     email: "juan.seed@example.com",
-    password: "Password123!",
+    password: "Password123",
   },
   {
     name: "María González",
     email: "maria.seed@example.com",
-    password: "Password123!",
+    password: "Password123",
   },
 ];
 
