@@ -15,12 +15,13 @@ export default function Dashboard() {
   const [order, setOrder] = useState<Order>("desc");
 
   const limit = 3;
+  const sortBy = "createdAt";
 
   const {
     data,
     isLoading,
     isError,
-  } = useArticles(page, limit, order);
+  } = useArticles(page, limit, order, sortBy);
 
   const articles = data?.data ?? [];
   const totalPages = data?.totalPages ?? 1;

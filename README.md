@@ -79,14 +79,14 @@ Crear archivo `.env` para backend:
 ```env
 PORT=3000
 
-MONGODB_URI=mongodb+srv://...
+MONGODB_URI=mongodb://...
 
 BETTER_AUTH_SECRET=secret
 
 BETTER_AUTH_URL=http://localhost:3000
 ```
 
-> ⚠️ **Nota sobre MongoDB:** cada persona que clone este proyecto debe crear **su propio clúster** en [MongoDB Atlas](https://www.mongodb.com/atlas) (tier gratuito M0) y usar su propia `MONGODB_URI` en su `.env` local.
+> ⚠️ **Nota sobre MongoDB:** cada persona que clone este proyecto debe crear su propio clúster en [MongoDB Atlas](https://www.mongodb.com/atlas) y usar su propia `MONGODB_URI` en su `.env` local.
 
 Crear archivo `.env` para frontend:
 
@@ -94,7 +94,7 @@ Crear archivo `.env` para frontend:
 VITE_API_URL=http://localhost:3000
 ```
 
-Ejecutar en desarrollo:
+Ejecutar en desarrollo (backend y frontend):
 
 ```bash
 npm run dev
@@ -188,7 +188,7 @@ Body:
 
 ---
 
-## Listar artículos
+## Listar artículos personales
 
 ```
 GET /articles
@@ -244,6 +244,24 @@ Solo el propietario puede eliminarlo.
 
 ---
 
+## Buscar artículos en la pagina principal
+
+```
+GET /public/articles?search=mongo&page=1&limit=9
+
+No se requiere autenticación.
+```
+
+---
+
+## Buscar autores en la pagina principal
+
+```
+GET /public/authors
+
+No se requiere autenticación.
+```
+
 # ✅ Características implementadas
 
 - Registro e inicio de sesión de usuarios.
@@ -296,3 +314,11 @@ Se utilizó como herramienta complementaria para:
 - Revisar implementaciones y recibir sugerencias de mejora.
 
 Las herramientas de IA fueron utilizadas como apoyo durante el proceso de desarrollo. Las soluciones propuestas fueron analizadas, adaptadas e integradas manualmente en el proyecto, realizando las pruebas necesarias para verificar su correcto funcionamiento.
+
+```
+
+```
+
+```
+
+```
