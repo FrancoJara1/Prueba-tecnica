@@ -354,7 +354,9 @@ button:hover {
     padding-bottom: 10px;
     height: auto;
   }
-
+  .home-header .header-content {
+    padding: 10px 20px;
+  }
   .header-content h1 {
     font-size: 20px;
   }
@@ -380,16 +382,13 @@ button:hover {
 
     padding: 10px;
   }
-
+    .articles-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
   .search-container > div {
     width: 100%;
   }
-
-  .authors-grid,
-  .articles-grid {
-    grid-template-columns: 1fr;
-  }
-
   .section {
     padding-top: 40px;
   }
@@ -421,8 +420,30 @@ button:hover {
     line-height: 1.1;
     min-width: max-content;   
   }
-}
+   .user-actions {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 10px;
+  }
 
+  .articles-dropdown-trigger {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .user-name {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .home-container {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+}
 .auth-page {
   min-height: 100vh;
   display: flex;
