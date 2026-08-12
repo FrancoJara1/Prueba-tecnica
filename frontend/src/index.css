@@ -296,6 +296,7 @@ body {
 }
 
 .home-footer {
+  margin-top: auto;
   width: 100%;
   margin-top: 75px;
   padding: 30px;
