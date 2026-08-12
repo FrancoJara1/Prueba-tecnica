@@ -419,22 +419,19 @@ button:hover {
     text-overflow: clip;    
     line-height: 1.1;
     min-width: max-content;   
+    width: 100%;
   }
-   .user-actions {
+  @media (max-width: 768px) {
+  .user-actions {
     flex-wrap: wrap;
     width: 100%;
     justify-content: flex-start;
     gap: 10px;
   }
-
   .articles-dropdown-trigger {
-    flex: 1 1 auto;
-    min-width: 0;
+    flex: 1 1 calc(50% - 5px); 
   }
-
-  .user-name {
-    width: 100%;
-  }
+}
 }
 @media (max-width: 480px) {
   .home-container {
