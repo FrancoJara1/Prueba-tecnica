@@ -94,7 +94,7 @@ export default function EditArticle() {
   }
 
   return (
-    <div>
+    <div className="create-article-page">
       <Header />
 
       <main className="create-article-content">

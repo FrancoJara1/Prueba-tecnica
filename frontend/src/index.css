@@ -939,6 +939,8 @@ button:hover {
   min-height: 100vh;
   width: 100%;
   background: #f4f7fb;
+  display: flex;
+  flex-direction: column;
 }
 .user-name {
   font-weight: 600;
@@ -950,6 +952,7 @@ button:hover {
 .create-article-content {
   width: 100%;
   padding: 40px;
+  flex: 1;
 }
 
 .create-article-card {

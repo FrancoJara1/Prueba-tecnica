@@ -51,7 +51,7 @@ export default function Register() {
             setRegisteredSuccessfully(true);
             setTimeout(() => {
               navigate({ to: "/login" });
-            }, 5000);
+            }, 4000);
           },
         }
       );
