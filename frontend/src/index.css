@@ -722,7 +722,7 @@ button:hover {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
   align-items: stretch;
 }
@@ -1286,6 +1286,13 @@ button:hover {
 
   .dashboard-toolbar-actions {
     width: 100%;
+    justify-content: space-between;
+  }
+  .pagination {
+    gap: 8px;
+    padding: 12px 16px;
+    width: 100%;
+    box-sizing: border-box;
     justify-content: space-between;
   }
 }
