@@ -53,6 +53,7 @@ return (
           name="email"
           children={(field) => (
             <Input
+              autoFocus
               placeholder="correo@email.com"
               type="email"
               value={field.state.value}
