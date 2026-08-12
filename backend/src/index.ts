@@ -7,9 +7,7 @@ import authRoutes from "./routers/auth";
 import articleRouter from "./routers/article.router";
 import userRouter from "./routers/user.router";
 import publicRouter from "./routers/public.router";
-import dns from "node:dns";
 const app = new Hono();
-dns.setServers(['8.8.8.8', '1.1.1.1']);
 app.use(
   "*",
   cors({
