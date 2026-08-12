@@ -7,14 +7,22 @@ import authRoutes from "./routers/auth";
 import articleRouter from "./routers/article.router";
 import userRouter from "./routers/user.router";
 import publicRouter from "./routers/public.router";
+
 const app = new Hono();
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  env.FRONTEND_URL, 
+].filter(Boolean);
+
 app.use(
   "*",
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
+
 app.get("/", (c) => {
   return c.json({ message: "API funcionando 🚀" });
 });
@@ -23,17 +31,11 @@ app.route("/", authRoutes);
 app.route("/", articleRouter);
 app.route("/", userRouter);
 app.route("/", publicRouter);
+
 app.onError((err, c) => {
   console.error("Error:", err);
-
-  return c.json(
-    {
-      message: "Error interno del servidor"
-    },
-    500
-  );
+  return c.json({ message: "Error interno del servidor" }, 500);
 });
-
 
 async function start() {
   await connectDB();
@@ -44,9 +46,7 @@ async function start() {
       port: env.PORT,
     },
     () => {
-      console.log(
-        `🚀 Servidor corriendo en http://localhost:${env.PORT}`
-      );
+      console.log(`🚀 Servidor corriendo en http://localhost:${env.PORT}`);
     }
   );
 }

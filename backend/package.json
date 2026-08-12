@@ -18,11 +18,11 @@
     "dotenv": "^17.4.2",
     "hono": "^4.13.1",
     "mongodb": "^7.5.0",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "typescript": "^7.0.2",
+    "@types/node": "^26.1.2"
   },
   "devDependencies": {
-    "@types/node": "^26.1.2",
-    "tsx": "^4.23.11",
-    "typescript": "^7.0.2"
+    "tsx": "^4.23.11"
   }
 }
