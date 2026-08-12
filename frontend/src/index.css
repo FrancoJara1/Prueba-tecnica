@@ -433,7 +433,10 @@ button:hover {
   .articles-dropdown-trigger {
     flex: 1 1 calc(50% - 5px); 
   }
-
+.dashboard-grid {
+    grid-template-columns: 1fr !important; 
+    gap: 20px;
+  }
 }
 @media (max-width: 480px) {
   .home-container {
@@ -483,10 +486,6 @@ button:hover {
   .pagination-info {
     font-size: 12px;
     white-space: nowrap;
-  }
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
 }
 .auth-page {
