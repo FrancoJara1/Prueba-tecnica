@@ -68,13 +68,13 @@ Clonar el repositorio:
 git clone <repository-url>
 ````
 
-Instalar dependencias:
+Instalar dependencias tanto en backend como en frontend:
 
 ```bash
 npm install
 ```
 
-Crear archivo `.env`:
+Crear archivo `.env` para backend:
 
 ```env
 PORT=3000
@@ -84,6 +84,14 @@ MONGODB_URI=mongodb+srv://...
 BETTER_AUTH_SECRET=secret
 
 BETTER_AUTH_URL=http://localhost:3000
+```
+
+> ⚠️ **Nota sobre MongoDB:** cada persona que clone este proyecto debe crear **su propio clúster** en [MongoDB Atlas](https://www.mongodb.com/atlas) (tier gratuito M0) y usar su propia `MONGODB_URI` en su `.env` local.
+
+Crear archivo `.env` para frontend:
+
+```env
+VITE_API_URL=http://localhost:3000
 ```
 
 Ejecutar en desarrollo:
@@ -97,6 +105,20 @@ Servidor disponible en:
 ```
 http://localhost:3000
 ```
+
+---
+
+## 🌱 Datos de ejemplo (seed)
+
+El proyecto incluye un script de seed para cargar datos de ejemplo en la base (usuarios y artículos), útil para probar la API sin tener que cargar todo a mano.
+
+Ejecutar desde el backend:
+
+```bash
+npm run seed
+```
+
+> Asegurate de tener `MONGODB_URI` configurado en tu `.env` antes de correrlo, ya que el seed se conecta a tu clúster para insertar los datos.
 
 ---
 
