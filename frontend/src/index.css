@@ -338,6 +338,9 @@ button:hover {
   .hero-content h2 {
     font-size: 36px;
   }
+    .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
@@ -406,6 +409,8 @@ button:hover {
   }
     .pagination {
     gap: 12px;
+    padding: 0 20px;
+    box-sizing: border-box;
   }
   .pagination span {
     min-width: auto;
@@ -431,6 +436,23 @@ button:hover {
 
   .articles-dropdown-trigger {
     flex: 1 1 calc(50% - 5px); 
+  }
+      .dashboard-pagination {
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .pagination-button {
+    padding: 0 10px;
+    font-size: 12px;
+    min-height: 36px;
+    flex-shrink: 0;
+  }
+
+  .pagination-info {
+    font-size: 12px;
+    white-space: nowrap;
   }
 }
 @media (max-width: 480px) {
@@ -465,23 +487,7 @@ button:hover {
   .user-actions > .user-name {
     flex: 1 1 100%;
   }
-    .dashboard-pagination {
-    flex-wrap: nowrap;
-    gap: 8px;
-    padding: 0 10px;
-  }
 
-  .pagination-button {
-    padding: 0 10px;
-    font-size: 12px;
-    min-height: 36px;
-    flex-shrink: 0;
-  }
-
-  .pagination-info {
-    font-size: 12px;
-    white-space: nowrap;
-  }
 }
 .auth-page {
   min-height: 100vh;
@@ -1294,31 +1300,4 @@ button:hover {
   }
 }
 
-@media (max-width: 900px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
 
-@media (max-width: 600px) {
-  .dashboard-content {
-    padding: 24px;
-  }
-
-  .dashboard-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .dashboard-cta {
-    width: 100%;
-  }
-
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard-pagination {
-    flex-wrap: wrap;
-  }
-}
