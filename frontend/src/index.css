@@ -1288,13 +1288,30 @@ button:hover {
     width: 100%;
     justify-content: space-between;
   }
+ @media (max-width: 640px) {
   .pagination {
-    gap: 8px;
-    padding: 12px 16px;
-    width: 100%;
-    box-sizing: border-box;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 20px !important; 
+    box-sizing: border-box !important;
+    gap: 8px;
   }
+
+  .pagination span {
+    min-width: auto;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .pagination-button {
+    padding: 0 10px !important;
+    font-size: 12px !important;
+    min-width: auto !important;
+  }
+}
 }
 .article-state--error p {
   color: #c96b6b;
