@@ -21,6 +21,8 @@ body {
   min-height: 100vh;
   width: 100%;
   background: #f4f7fb;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-container {
@@ -298,7 +300,6 @@ body {
 .home-footer {
   margin-top: auto;
   width: 100%;
-  margin-top: 75px;
   padding: 30px;
   background: #243b53;
   border-top: 1px solid #1e3449;
