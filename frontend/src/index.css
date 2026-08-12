@@ -338,9 +338,7 @@ button:hover {
   .hero-content h2 {
     font-size: 36px;
   }
-    .dashboard-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  
 }
 
 @media (max-width: 768px) {
@@ -409,8 +407,6 @@ button:hover {
   }
     .pagination {
     gap: 12px;
-    padding: 0 20px;
-    box-sizing: border-box;
   }
   .pagination span {
     min-width: auto;
@@ -437,23 +433,7 @@ button:hover {
   .articles-dropdown-trigger {
     flex: 1 1 calc(50% - 5px); 
   }
-      .dashboard-pagination {
-    flex-wrap: nowrap;
-    gap: 8px;
-    padding: 0 10px;
-  }
 
-  .pagination-button {
-    padding: 0 10px;
-    font-size: 12px;
-    min-height: 36px;
-    flex-shrink: 0;
-  }
-
-  .pagination-info {
-    font-size: 12px;
-    white-space: nowrap;
-  }
 }
 @media (max-width: 480px) {
   .home-container {
@@ -487,7 +467,23 @@ button:hover {
   .user-actions > .user-name {
     flex: 1 1 100%;
   }
+    .dashboard-pagination {
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 0 10px;
+  }
 
+  .pagination-button {
+    padding: 0 10px;
+    font-size: 12px;
+    min-height: 36px;
+    flex-shrink: 0;
+  }
+
+  .pagination-info {
+    font-size: 12px;
+    white-space: nowrap;
+  }
 }
 .auth-page {
   min-height: 100vh;
@@ -718,8 +714,7 @@ button:hover {
 }
 
 .dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
   align-items: stretch;
 }
