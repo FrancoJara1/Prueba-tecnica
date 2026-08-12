@@ -410,7 +410,7 @@ button:hover {
   .pagination span {
     min-width: auto;
   } 
- .user-name {
+   .user-name {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -421,17 +421,17 @@ button:hover {
     min-width: max-content;   
     width: 100%;
   }
-  @media (max-width: 768px) {
-  .user-actions {
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 10px;
+    .user-actions > * {
+    flex: 1 1 calc(50% - 5px);
   }
+
+  .user-actions > .user-name {
+    flex: 1 1 100%;
+  }
+
   .articles-dropdown-trigger {
     flex: 1 1 calc(50% - 5px); 
   }
-}
 }
 @media (max-width: 480px) {
   .home-container {
@@ -439,6 +439,31 @@ button:hover {
     padding-left: 20px;
     padding-right: 20px;
     box-sizing: border-box;
+  }
+
+  .user-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    line-height: 1.1;
+    min-width: max-content;
+    width: 100%;
+  }
+
+  .user-actions {
+    justify-content: flex-end;
+    padding-left: 20px;
+  }
+
+  .user-actions > * {
+    flex: 0 1 auto;
+  }
+
+  .user-actions > .user-name {
+    flex: 1 1 100%;
   }
 }
 .auth-page {
