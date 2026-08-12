@@ -12,11 +12,12 @@ export const registerSchema = z
 
     password: z
       .string()
-      .min(8, "La contraseña debe tener al menos 8 caracteres"),
+      .min(8, "La contraseña debe tener al menos 8 caracteres")
+      .regex(/[A-Z]/, "La contraseña debe tener al menos una mayúscula"),
 
     confirmPassword: z
       .string()
-      .min(1, "Confirmá tu contraseña"),
+      .min(1, "Confirmá tu contraseña")
   })
   .refine(
     (data) => data.password === data.confirmPassword,
