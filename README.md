@@ -313,12 +313,8 @@ Se utilizó como herramienta complementaria para:
 - Obtener diferentes enfoques para resolver problemas durante el desarrollo.
 - Revisar implementaciones y recibir sugerencias de mejora.
 
-Las herramientas de IA fueron utilizadas como apoyo durante el proceso de desarrollo. Las soluciones propuestas fueron analizadas, adaptadas e integradas manualmente en el proyecto, realizando las pruebas necesarias para verificar su correcto funcionamiento.
+Las herramientas de IA fueron utilizadas como apoyo durante el proceso de desarrollo. Las soluciones propuestas fueron analizadas, adaptadas e integradas manualmente en el proyecto, realizando las pruebas necesarias para verificar su correcto funcionamiento
 
-```
+**Link a la pagina: https://prueba-tecnica-three-self.vercel.app**
 
-```
-
-```
-
-```
+**Link al backemd: https://prueba-tecnica-tyzr.onrender.com**
