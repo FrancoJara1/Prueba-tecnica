@@ -465,6 +465,23 @@ button:hover {
   .user-actions > .user-name {
     flex: 1 1 100%;
   }
+    .dashboard-pagination {
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .pagination-button {
+    padding: 0 10px;
+    font-size: 12px;
+    min-height: 36px;
+    flex-shrink: 0;
+  }
+
+  .pagination-info {
+    font-size: 12px;
+    white-space: nowrap;
+  }
 }
 .auth-page {
   min-height: 100vh;
