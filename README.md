@@ -71,7 +71,8 @@ git clone <repository-url>
 Instalar dependencias tanto en backend como en frontend:
 
 ```bash
-npm install
+cd backend: npm install
+cd frontend: npm install
 ```
 
 Crear archivo `.env` para backend:
@@ -313,12 +314,8 @@ Se utilizó como herramienta complementaria para:
 - Obtener diferentes enfoques para resolver problemas durante el desarrollo.
 - Revisar implementaciones y recibir sugerencias de mejora.
 
-Las herramientas de IA fueron utilizadas como apoyo durante el proceso de desarrollo. Las soluciones propuestas fueron analizadas, adaptadas e integradas manualmente en el proyecto, realizando las pruebas necesarias para verificar su correcto funcionamiento.
+Las herramientas de IA fueron utilizadas como apoyo durante el proceso de desarrollo. Las soluciones propuestas fueron analizadas, adaptadas e integradas manualmente en el proyecto, realizando las pruebas necesarias para verificar su correcto funcionamiento
 
-```
+**Link a la pagina: https://prueba-tecnica-three-self.vercel.app**
 
-```
-
-```
-
-```
+**Link al backend: https://prueba-tecnica-tyzr.onrender.com**
