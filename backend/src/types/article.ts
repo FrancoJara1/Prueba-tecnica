@@ -7,4 +7,12 @@ export interface Article {
   authorId: ObjectId;
   createdAt: Date;
   updatedAt: Date;
+  comments: Comment[];
+}
+export interface Comment {
+  _id: ObjectId;
+  authorId: ObjectId;
+  comment: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

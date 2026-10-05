@@ -9,7 +9,6 @@ import userRouter from "./routers/user.router";
 import publicRouter from "./routers/public.router";
 
 const app = new Hono();
-
 const allowedOrigins = [
   "http://localhost:5173",
   env.FRONTEND_URL, 

@@ -29,7 +29,9 @@ export const createArticle = asyncHandler(async (c) => {
     authorId: new ObjectId(user.id),
     createdAt: new Date(),
     updatedAt: new Date(),
+    comments: [],
   };
+
 
   const result = await db
     .collection("articles")
@@ -156,10 +158,14 @@ export const getArticleById = asyncHandler(async (c) => {
           imageUrl: 1,
           createdAt: 1,
           updatedAt: 1,
-          author: {
-            id: "$author._id",
-            name: "$author.name",
-            email: "$author.email",
+          comments: {
+            comment: 1,
+            createdAt: 1,
+            updatedAt: 1,
+            author: {
+              name: "$comments.author.name",
+              email: "$comments.author.email",
+            },
           },
         },
       },
@@ -248,6 +254,74 @@ if (!validation.success) {
 
 });
 
+export const addComment = asyncHandler(async (c) => {
+  const user = c.get("user");
+  const id = c.req.param("id");
+
+  if (!ObjectId.isValid(id)) {
+    return c.json(
+      {
+        error: "ID inválido"
+      },
+      400
+    );
+  }
+
+  const body = await c.req.json();
+
+  if (!body.comment || typeof body.comment !== "string" || !body.comment.trim()) {
+    return c.json(
+      {
+        error: "El contenido del comentario es requerido"
+      },
+      400
+    );
+  }
+
+  const article = await db
+    .collection("articles")
+    .findOne({
+      _id: new ObjectId(id)
+    });
+
+  if (!article) {
+    return c.json(
+      {
+        error: "Artículo no encontrado"
+      },
+      404
+    );
+  }
+
+  const newComment = {
+    _id: new ObjectId(),
+    comment: body.comment.trim(),
+    author: {
+      id: new ObjectId(user.id || user._id),
+      name: user.name,
+      email: user.email,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  await db
+    .collection("articles")
+    .updateOne(
+      {
+        _id: new ObjectId(id)
+      },
+      { 
+        $push: { comments: newComment as any },
+        $set: { updatedAt: new Date() }
+      }
+    );
+
+  return c.json({
+    message: "Comentario agregado",
+  }, 201);
+});
+
 export const deleteArticle = asyncHandler(async (c) => {
   const user = c.get("user");
   const id = c.req.param("id");
@@ -287,7 +361,6 @@ export const deleteArticle = asyncHandler(async (c) => {
       403
     );
   }
-
 
   await db
     .collection("articles")

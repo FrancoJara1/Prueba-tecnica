@@ -4,7 +4,8 @@ import {
   getArticles,
   getArticleById,
   updateArticle,
-  deleteArticle
+  deleteArticle,
+  addComment
 } from "../controllers/article.controller";
 import { requireAuth } from "../middleware/auth";
 
@@ -38,5 +39,10 @@ router.delete(
     requireAuth,
     deleteArticle
 )
+router.post(
+  "/articles/:id/comments",
+  requireAuth,
+  addComment
+);
 
 export default router;
