@@ -9,6 +9,7 @@ interface Article {
   content: string;
   imageUrl?: string;
   createdAt: string;
+  comments: Comment[];
 }
 
 export default function ArticleCard({

@@ -3,6 +3,8 @@ import { useParams } from "@tanstack/react-router";
 import { Button } from "@heroui/react";
 import Header from "../components/Header";
 import { useArticle } from "../hooks/useArticle";
+import Footer from "../components/Footer";
+import Comments from "../components/Comments";
 
 function calcularTiempoLectura(content: string): number {
   const palabras = content.trim().split(/\s+/).length;
@@ -119,13 +121,12 @@ export default function Article() {
             </div>
 
             <div className="article-detail-content">{article.content}</div>
+              <Comments/>
           </article>
         )}
         
       </div>
-         <footer className="home-footer">
-        Article Manager · Prueba técnica Fullstack
-      </footer>
+         <Footer />
     </div>
   );
 }

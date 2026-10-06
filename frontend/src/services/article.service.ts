@@ -47,6 +47,36 @@ export async function updateArticle(
   return response.data;
 }
 
+export async function addCommentToArticle(
+  articleId: string,
+  data: { comment: string }
+) {
+  const response = await api.post(`/articles/${articleId}/comments`, data);
+
+  return response.data;
+}
+
+export async function updateComment(
+  articleId: string,
+  _id: string,
+  data: { comment: string }
+) {
+  const response = await api.put(
+    `/articles/${articleId}/comments/${_id}`,
+    data
+  );
+
+  return response.data;
+}
+
+export async function deleteComment(articleId: string, _id: string) {
+  const response = await api.delete(
+    `/articles/${articleId}/comments/${_id}`
+  );
+
+  return response.data;
+}
+
 export async function deleteArticle(id: string) {
   const response = await api.delete(`/articles/${id}`);
 

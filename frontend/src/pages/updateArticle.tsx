@@ -6,6 +6,7 @@ import { useArticle } from "../hooks/useArticle";
 import { useUpdateArticle } from "../hooks/useUpdateArticle";
 import { createArticleSchema } from "../schemas/article.schema";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function getFieldErrorMessage(errors: unknown[]): string | undefined {
   const first = errors[0];
@@ -227,9 +228,7 @@ export default function EditArticle() {
 
         </div>
       </main>
-      <footer className="home-footer">
-        Article Manager · Prueba técnica Fullstack
-      </footer>
+      <Footer />
     </div>
   );
 }

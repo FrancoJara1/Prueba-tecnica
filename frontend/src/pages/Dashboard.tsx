@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ArticleCard from "../components/ArticleCard";
 import Header from "../components/Header";
 import { useArticles } from "../hooks/useArticles";
+import Footer from "../components/Footer";
 
 type Order = "asc" | "desc";
 
@@ -203,9 +204,7 @@ export default function Dashboard() {
         )}
       </div>
 
-      <footer className="dashboard-footer">
-        Article Manager · Prueba técnica Fullstack
-      </footer>
+      <Footer />
     </div>
   );
 }

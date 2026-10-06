@@ -4,6 +4,7 @@ import { createArticleSchema } from "../schemas/article.schema";
 import { useCreateArticle } from "../hooks/useCreateArticle";
 import { useNavigate } from "@tanstack/react-router";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function getFieldErrorMessage(errors: unknown[]): string | undefined {
   const first = errors[0];
@@ -154,7 +155,7 @@ export default function CreateArticle() {
           )}
         </div>
       </main>
-      <footer className="home-footer">Article Manager · Prueba técnica Fullstack</footer>
+      <Footer />
     </div>
   );
 }

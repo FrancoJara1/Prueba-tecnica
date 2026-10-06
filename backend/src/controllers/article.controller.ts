@@ -153,21 +153,25 @@ export const getArticleById = asyncHandler(async (c) => {
       },
       {
         $project: {
-          title: 1,
-          content: 1,
-          imageUrl: 1,
-          createdAt: 1,
-          updatedAt: 1,
-          comments: {
-            comment: 1,
-            createdAt: 1,
-            updatedAt: 1,
-            author: {
-              name: "$comments.author.name",
-              email: "$comments.author.email",
-            },
-          },
-        },
+  title: 1,
+  content: 1,
+  imageUrl: 1,
+  createdAt: 1,
+  updatedAt: 1,
+  comments: {
+    $map: {
+      input: { $ifNull: ["$comments", []] },
+      as: "c",
+      in: {
+        _id: "$$c._id",
+        comment: "$$c.comment",
+        createdAt: "$$c.createdAt",
+        updatedAt: "$$c.updatedAt",
+        author: { id: "$$c.author.id", name: "$$c.author.name" },
+      },
+    },
+  },
+},
       },
     ])
     .toArray();
@@ -182,6 +186,96 @@ export const getArticleById = asyncHandler(async (c) => {
   }
 
   return c.json(result[0]);
+});
+export const updateComment = asyncHandler(async (c) => {
+  const user = c.get("user");
+  const id = c.req.param("id");
+  const commentId = c.req.param("commentId");
+ 
+  if (!ObjectId.isValid(id) || !ObjectId.isValid(commentId)) {
+    return c.json({ error: "ID inválido" }, 400);
+  }
+ 
+  const body = await c.req.json();
+ 
+  if (!body.comment || typeof body.comment !== "string" || !body.comment.trim()) {
+    return c.json({ error: "El contenido del comentario es requerido" }, 400);
+  }
+ 
+  const article = await db
+    .collection("articles")
+    .findOne({ _id: new ObjectId(id) });
+ 
+  if (!article) {
+    return c.json({ error: "Artículo no encontrado" }, 404);
+  }
+ 
+  const existing = (article.comments ?? []).find(
+    (cm: any) => cm?._id?.toString() === commentId
+  );
+ 
+  if (!existing) {
+    return c.json({ error: "Comentario no encontrado" }, 404);
+  }
+ 
+  if (existing.author?.id?.toString() !== user.id) {
+    return c.json(
+      { error: "No tienes permisos para editar este comentario" },
+      403
+    );
+  }
+ 
+  await db.collection("articles").updateOne(
+    { _id: new ObjectId(id), "comments._id": new ObjectId(commentId) },
+    {
+      $set: {
+        "comments.$.comment": body.comment.trim(),
+        "comments.$.updatedAt": new Date(),
+      },
+    }
+  );
+ 
+  return c.json({ message: "Comentario actualizado" });
+});
+ 
+export const deleteComment = asyncHandler(async (c) => {
+  const user = c.get("user");
+  const id = c.req.param("id");
+  const commentId = c.req.param("commentId");
+ 
+  if (!ObjectId.isValid(id) || !ObjectId.isValid(commentId)) {
+    return c.json({ error: "ID inválido" }, 400);
+  }
+ 
+  const article = await db
+    .collection("articles")
+    .findOne({ _id: new ObjectId(id) });
+ 
+  if (!article) {
+    return c.json({ error: "Artículo no encontrado" }, 404);
+  }
+ 
+  const existing = (article.comments ?? []).find(
+    (cm: any) => cm?._id?.toString() === commentId
+  );
+ 
+  if (!existing) {
+    return c.json({ error: "Comentario no encontrado" }, 404);
+  }
+ 
+  if (existing.author?.id?.toString() !== user.id) {
+    return c.json(
+      { error: "No tienes permisos para eliminar este comentario" },
+      403
+    );
+  }
+ 
+  await db.collection("articles").updateOne(
+    { _id: new ObjectId(id) },
+    { $pull: { comments: { _id: new ObjectId(commentId) } } } as any
+  );
+ 
+  return c.json({ message: "Comentario eliminado" });
 });
 
 export const updateArticle = asyncHandler(async (c) => {

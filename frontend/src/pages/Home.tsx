@@ -5,6 +5,7 @@ import { useAuthors } from "../hooks/useAuthors";
 import { usePublicArticles } from "../hooks/usePublicArticles";
 import Header from "../components/Header";
 import { useNavigate } from "@tanstack/react-router";
+import Footer from "../components/Footer";
 
 const MAX_AUTHORS = 8;
 
@@ -199,9 +200,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="home-footer">
-        Article Manager · Prueba técnica Fullstack
-      </footer>
+      <Footer />
       
     </div>
   );
